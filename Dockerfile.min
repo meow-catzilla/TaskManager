@@ -1,0 +1,9 @@
+FROM eclipse-temurin:21-jdk AS build
+WORKDIR /app
+COPY . .
+RUN ./mvnw clean package -DskipTests
+
+FROM gcr.io/distroless/java21-debian12
+WORKDIR /app
+COPY --from=build /app/target/*.war app.war
+ENTRYPOINT ["java", "-jar", "/app/app.war"]
