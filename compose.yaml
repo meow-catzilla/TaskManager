@@ -1,0 +1,16 @@
+services:
+ taskman:
+  image: tmapp
+  deploy:
+   mode: replicated
+   replicas: 3
+#   restart_policy:
+#    condition: on-failure
+  environment: 
+     - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/tm
+#  ports:
+#   - "8080:8080"
+#   - "8081:8080"
+#   - "8082:8080"
+  extra_hosts:
+   - "host.docker.internal:host-gateway"
